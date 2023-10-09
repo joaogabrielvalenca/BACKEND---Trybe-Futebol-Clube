@@ -1,4 +1,6 @@
 import * as express from 'express';
+import TeamController from './controller/team.controller';
+// import Team from './database/models/team.model';
 
 class App {
   public app: express.Express;
@@ -9,6 +11,10 @@ class App {
     this.config();
 
     // Não remover essa rota
+    this.app.get('/teams/:id', TeamController.getTeamById);
+
+    this.app.get('/teams', TeamController.getAllTeams);
+
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
 
