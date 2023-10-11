@@ -6,7 +6,7 @@
 //   };
 // }
 export default interface ServiceResponse<T = unknown> {
-  status: 'SUCCESSFUL' | 'NOT_FOUND' | 'ERROR';
+  // status: 'SUCCESSFUL' | 'NOT_FOUND' | 'ERROR';
   data?: T;
   message?: string;
 }

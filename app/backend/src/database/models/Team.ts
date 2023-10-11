@@ -1,18 +1,3 @@
-// import { DataTypes, Model } from 'sequelize';
-// import TeamAttributes from '../../Interfaces/TeamAttributes';
-// import db from '.';
-
-// class Team extends Model<TeamAttributes> {
-//   public id!: number;
-//   public teamName!: string;
-
-//   public static initialize() {
-//     Team.init({
-//       id: { type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true },
-//       teamName: { type: DataTypes.STRING, allowNull: false },
-//     }, { sequelize: db, tableName: 'teams', underscored: true, timestamps: false });
-//   }
-
 import {
   DataTypes,
   Model,

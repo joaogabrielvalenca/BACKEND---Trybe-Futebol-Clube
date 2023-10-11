@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import TeamService from '../services/team.service';
 
-class TeamController {
+export default class TeamController {
   // private teamService: TeamService;
 
   constructor(
@@ -9,8 +9,6 @@ class TeamController {
   ) {}
 
   public async getAllTeams(_req: Request, res: Response): Promise<Response> {
-    console.log('teste');
-    // console.log('service', this.teamService);
     const teams = await this.teamService.getAllTeams();
     return res.status(200).json(teams);
   }
@@ -19,12 +17,10 @@ class TeamController {
     const { id } = req.params;
     const team = await this.teamService.getTeamById(Number(id));
 
-    if (team.status === 'SUCCESSFUL') {
+    if (team.message === 'SUCCESSFUL') {
       return res.status(200).json(team.data);
     }
 
     return res.status(404).json({ error: 'NOT_FOUND' });
   }
 }
-
-export default new TeamController();

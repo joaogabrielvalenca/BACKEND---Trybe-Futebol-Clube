@@ -7,18 +7,18 @@ export default class TeamService {
     private teamModel: ModelStatic<Team> = Team,
   ) {}
 
-  public async getAllTeams(): Promise<ServiceResponse<{ id: number; teamName: string }[]>> {
-    console.log('Dados retornados de getAllTeams:');
+  public async getAllTeams(): Promise<{ id: number; teamName: string }[]> {
     try {
       const teams = await this.teamModel.findAll();
+      // console.log('Dados retornados de getAllTeams:', teams.dataValues);
       const teamsReturn = teams.map((team) => ({
         id: team.id,
         teamName: team.teamName,
       }));
-      return { status: 'SUCCESSFUL', data: teamsReturn };
+      return teamsReturn;
     } catch (error) {
       console.error('Erro ao buscar times:', error);
-      return { status: 'ERROR', message: 'Erro ao buscar times' };
+      throw error;
     }
   }
 
@@ -26,20 +26,18 @@ export default class TeamService {
   Promise<ServiceResponse< { id: number; teamName: string }>> {
     try {
       const team = await this.teamModel.findByPk(id);
-      console.log('Dados retornados de getTeamById:', team);
-
       if (!team) {
-        return { status: 'NOT_FOUND', message: 'Time não encontrado' };
+        return { message: 'Time não encontrado' };
       }
       return {
-        status: 'SUCCESSFUL',
+        message: 'SUCCESSFUL',
         data: {
           id: team.id,
           teamName: team.teamName,
         },
       };
     } catch (error) {
-      return { status: 'ERROR', message: `Erro ao buscar o time com ID ${id}` };
+      return { message: `Erro ao buscar o time com ID ${id}` };
     }
   }
 }

@@ -1,5 +1,6 @@
 import * as express from 'express';
-import TeamController from './controller/team.controller';
+// import TeamController from './controller/team.controller';
+import router from './routes/routes';
 // import Team from './database/models/team.model';
 
 class App {
@@ -10,12 +11,14 @@ class App {
 
     this.config();
 
+    this.routes();
+
     // Não remover essa rota
-    this.app.get('/teams/:id', TeamController.getTeamById);
-
-    this.app.get('/teams', TeamController.getAllTeams);
-
     this.app.get('/', (req, res) => res.json({ ok: true }));
+  }
+
+  private routes(): void {
+    this.app.use(router);
   }
 
   private config():void {
