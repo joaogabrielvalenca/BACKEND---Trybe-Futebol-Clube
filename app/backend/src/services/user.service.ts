@@ -25,12 +25,9 @@ export default class UserService {
     if (password.length < 6) {
       return { status: 'UNAUTHORIZED', message: invalidMessage };
     }
-
     const host = await this.userModel.findOne({ where: { email } });
     if (!host) return { status: 'UNAUTHORIZED', message: invalidMessage };
-
     const isValidPassword = await bcrypt.compare(password, host.dataValues.password);
-
     if (!isValidPassword) return { status: 'UNAUTHORIZED', message: invalidMessage };
 
     const token = jwt.sign(

@@ -77,16 +77,14 @@ export default class MatchService {
     awayTeamGoals: number;
   }) {
     try {
-      // Crie uma nova partida no banco de dados com os dados fornecidos
       const newMatch = await this.matchModel.create({
         homeTeamId: data.homeTeamId,
         awayTeamId: data.awayTeamId,
         homeTeamGoals: data.homeTeamGoals,
         awayTeamGoals: data.awayTeamGoals,
-        inProgress: true, // A nova partida está em andamento
+        inProgress: true,
       });
 
-      // Retorna a partida recém-criada
       return newMatch;
     } catch (error) {
       throw new Error('Erro ao criar uma nova partida');
@@ -96,15 +94,11 @@ export default class MatchService {
   //   homeTeamId: number, awayTeamId: number, homeTeamGoals:number, awayTeamGoals: number;
   // }) {
   //   try {
-  //     if (data.homeTeamId === data.awayTeamId) {
-  //       return Promise.reject(
-  //         { status: 422, message: 'It is not possible to create a match with two equal teams' });
-  //     }
   //     const homeTeam = await this.matchModel.findByPk(data.homeTeamId);
   //     const awayTeam = await this.matchModel.findByPk(data.awayTeamId);
 
   //     if (!homeTeam || !awayTeam) {
-  //       return Promise.reject({ status: 404, message: 'There is no team with such id!' });
+  //       return ({ status: 404, message: 'There is no team with such id!' });
   //     }
   //     const newMatch = await this.matchModel.create({
   //       homeTeamId: data.homeTeamId,

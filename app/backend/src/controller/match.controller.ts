@@ -67,12 +67,13 @@ export default class MatchController {
     }
   }
 
-  public async createMatch(req: Request, res: Response): Promise<Response | undefined> {
+  public async createMatch(req: Request, res: Response): Promise<Response | object> {
     try {
       const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
       const newMatch = await this.matchService.createNewMatch({
         homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals,
       });
+
       return res.status(201).json({
         id: newMatch.id,
         homeTeamId: newMatch.homeTeamId,
