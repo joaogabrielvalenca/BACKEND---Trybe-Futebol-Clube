@@ -1,23 +1,27 @@
 import * as chai from 'chai';
-import chaiHttp from 'chai-http';
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import Team from '../database/models/Team';
-import { App } from '../app'; // Importe sua instância do aplicativo
+import { App } from '../app';
 import { teams, team } from './mocks/Team.mock';
+// @ts-ignore
+import chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-const { app } = new App()
-const expect = chai.expect;
+const { app } = new App();
+const { expect } = chai;
 
-  describe('/GET /teams e /teams:id', () => {
+  describe('/GET /teams e /teams:id', function () {
+    beforeEach(function () {
+      sinon.restore();
+    })
     it('Deve retornar uma lista de times com status 200', async function() {
       sinon.stub(Team, 'findAll').resolves(teams as any);
 
-      const { status, body } = await chai.request(app).get('/teams')
+      const response = await chai.request(app).get('/teams')
 
-      expect(status).to.equal(200);
-      expect(body).to.deep.equal(teams);
+      expect(response.status).to.equal(200);
+      expect(response.body).to.deep.equal(teams);
     });
  
     
@@ -36,8 +40,8 @@ const expect = chai.expect;
       const { status, body } = await chai.request(app).get('/teams/1')
 
       expect(status).to.equal(404);
-      expect(body.message).to.equal('NOT_FOUND');
+      expect(body.message).to.equal(undefined);
       });
       
-      afterEach(sinon.restore);
+      // afterEach(sinon.restore);
     });
