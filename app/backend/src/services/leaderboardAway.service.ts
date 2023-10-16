@@ -102,12 +102,11 @@ export default class LeaderboardAwayService {
         inProgress: false,
       },
     });
-
     const goalsFavor = awayMatches.reduce((totalGoals, match) =>
       totalGoals + match.awayTeamGoals, 0);
     const goalsOwn = awayMatches.reduce((totalGoals, match) =>
-      totalGoals + match.awayTeamGoals, 0);
-
+      totalGoals + match.homeTeamGoals, 0);
+  
     return goalsFavor - goalsOwn;
   }
 
