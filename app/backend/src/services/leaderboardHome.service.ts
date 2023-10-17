@@ -120,4 +120,20 @@ export default class LeaderboardHomeService {
 
     return efficiency;
   }
+
+  async allFunctionsResponse(teamId: number): Promise<any> {
+    const points = await this.calculateHomePoints(teamId);
+    const games = await this.calculateTotalHomeGames(teamId);
+    const wins = await this.calculateHomeVictories(teamId);
+    const draws = await this.calculateTotalHomeDraws(teamId);
+    const loss = await this.calculateTotalHomeLosses(teamId);
+    const gFavor = await this.calculateHomeGoalsFavor(teamId);
+    const gOwn = await this.calculateHomeGoalsOwn(teamId);
+    const gBalance = await this.calculateHomeGoalsBalance(teamId);
+    const eff = await this.calculateHomeEfficiency(teamId);
+
+    return {
+      points, games, wins, draws, loss, gFavor, gOwn, gBalance, eff,
+    };
+  }
 }

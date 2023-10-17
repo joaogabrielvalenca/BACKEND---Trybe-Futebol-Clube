@@ -106,7 +106,6 @@ export default class LeaderboardAwayService {
       totalGoals + match.awayTeamGoals, 0);
     const goalsOwn = awayMatches.reduce((totalGoals, match) =>
       totalGoals + match.homeTeamGoals, 0);
-  
     return goalsFavor - goalsOwn;
   }
 
@@ -118,5 +117,21 @@ export default class LeaderboardAwayService {
     const efficiency = `${((totalPoints / totalPossiblePoints) * 100).toFixed(2)}`;
 
     return efficiency;
+  }
+
+  async allFunctionsResponse(teamId: number): Promise<any> {
+    const points = await this.calculateAwayPoints(teamId);
+    const games = await this.calculateTotalAwayGames(teamId);
+    const wins = await this.calculateAwayVictories(teamId);
+    const draws = await this.calculateTotalAwayDraws(teamId);
+    const loss = await this.calculateTotalAwayLosses(teamId);
+    const gFavor = await this.calculateAwayGoalsFavor(teamId);
+    const gOwn = await this.calculateAwayGoalsOwn(teamId);
+    const gBalance = await this.calculateAwayGoalsBalance(teamId);
+    const eff = await this.calculateAwayEfficiency(teamId);
+
+    return {
+      points, games, wins, draws, loss, gFavor, gOwn, gBalance, eff,
+    };
   }
 }

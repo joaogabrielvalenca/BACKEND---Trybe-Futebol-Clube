@@ -2,7 +2,8 @@ import { Request, Router, Response, NextFunction } from 'express';
 import TeamController from '../controller/team.controller';
 import UserController from '../controller/user.controller';
 import MatchController from '../controller/match.controller';
-import LeaderboardController from '../controller/leaderboard.controller';
+import LeaderboardHomeController from '../controller/leaderboard.home.controller';
+import LeaderboardAwayController from '../controller/leaderboard.away.controller';
 import AuthMiddleware from '../middlewares/auth.middleware';
 
 const teamController = new TeamController();
@@ -11,7 +12,9 @@ const userController = new UserController();
 
 const matchController = new MatchController();
 
-const leaderboardController = new LeaderboardController();
+const leaderboardHomeController = new LeaderboardHomeController();
+
+const leaderboardAwayController = new LeaderboardAwayController();
 
 const authMiddleware = new AuthMiddleware();
 
@@ -73,9 +76,9 @@ router.post('/matches', validateTokenMiddleware, (req: Request, res: Response) =
   matchController.createMatch(req, res));
 
 router.get('/leaderboard/home', (req: Request, res: Response) =>
-  leaderboardController.getHomeLeaderboard(req, res));
+  leaderboardHomeController.getHomeLeaderboard(req, res));
 
 router.get('/leaderboard/away', (req: Request, res: Response) =>
-  leaderboardController.getAwayLeaderboard(req, res));
+  leaderboardAwayController.getAwayLeaderboard(req, res));
 
 export default router;
